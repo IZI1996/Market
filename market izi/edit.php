@@ -26,7 +26,7 @@ if (isset($_POST['update'])) {
 	$dataa=mysqli_query($con,$updat);
     if($dataa)
     {
-      header("location:ajouter.php");
+      header("location:Afficher.php");
 
 
     }else
@@ -89,14 +89,17 @@ if (isset($_POST['update'])) {
           <div class=" col-lg-8 col-md-12  offset-md-2"  data-aos="fade-up" data-aos-delay="300">
             <form  action="" method="post" >
               <div class="form-group">
+              <label for="exampleFormControlSelect2" class="mb-3" style="color:#3498db">Description</label>
                 <input type="text" name="description" class="form-control" id="description"  value="<?php echo      $data ['description']; ?>">
               </div>
               <br>
               <div class="form-group">
+              <label for="exampleFormControlSelect2" class="mb-3" style="color:#3498db">Wording</label>
                 <input type="text" class="form-control" name="wording" id="wording" value="<?php echo      $data ['wording']; ?>">
               </div>
               <br>
               <div class="form-group">
+              <label for="exampleFormControlSelect2" class="mb-3" style="color:#3498db">Unit price</label>
                 <input type="text" class="form-control" name="unit_price" id="unit_price" value="<?php echo      $data['unit_price']; ?>">
               </div>
               
@@ -104,16 +107,19 @@ if (isset($_POST['update'])) {
               <br>
             
               <div class="form-group">
+              <label for="exampleFormControlSelect2" class="mb-3" style="color:#3498db">Quantity min</label>
               <input name="quantity_min" value="<?php echo      $data ['quantity_min']; ?>" class="form-control">
 
               </div>
               <br>
               <div class="form-group">
+              <label for="exampleFormControlSelect2" class="mb-3" style="color:#3498db">Quantity stock</label>
               <input name="quantity_stock" value="<?php echo      $data ['quantity_stock']; ?>" class="form-control">
 
               </div>
               <br>
               <div class="form-group">
+              <label for="exampleFormControlSelect2" class="mb-3" style="color:#3498db">Category</label>
               <input name="category" value="<?php echo      $data ['category']; ?>" class="form-control">
 
               </div>

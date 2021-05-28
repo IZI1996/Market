@@ -170,9 +170,7 @@
       $username = mysqli_real_escape_string($con, $_POST['username']);
       $password = mysqli_real_escape_string($con, $_POST['password']);
       $password = password_hash($password, PASSWORD_DEFAULT);
-      
-      $sql = "SELECT * FROM users WHERE username = '$username'";
-      $execute = mysqli_query($con,$sql);
+  
         
    
           $query= "INSERT INTO users(username,password) 

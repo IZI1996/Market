@@ -77,90 +77,69 @@
 <?php
 $con=mysqli_connect("localhost","root","","market");
 ?>
-<section id="contact" class="contact ">
-      <div class="container">
-
-        <div class="section-title" >
-          <h2>New Product</h2>
-        </div>
-
-        <div class="row">
-
-          <div class=" col-lg-8 col-md-12  offset-md-2"  >
-            <form action="ajouter.php" method="post" >
-              <div class="form-group">
-                <input type="text" name="description" class="form-control mb-3" id="description" placeholder="Description" required>
-              </div>
-             
-              <div class="form-group">
-                <input type="text" class="form-control mb-3" name="wording" id="wording" placeholder="wording" required>
-              </div>
-             
-              <div class="form-group">
-                <input type="text" class="form-control mb-3" name="unit_price" id="unit_price" placeholder="unit_price" required>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control mb-3" name="quantity_min" id="quantity_min" placeholder="quantity_min" required>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control mb-3" name="quantity_stock" id="quantity_stock" placeholder="quantity_stock" required>
-              </div>
-              
-            
-             
-            
-              <div class="form-group">
-            
-              <select  class="form-control mb-3" name="category">
-
-              <option>---- Chose------ </option>
-              <?php $quariy =mysqli_query($con,"select DISTINCT  category from product ");
-               while ( $row = mysqli_fetch_array($quariy)){?>
-                 <option><?php echo $row['category']?></option>
-                 <?php }?>
-                     </select>
-
-              </div>
-                  
+<?php
 
 
-              <br>
-
-              <div>
-            <button style='  padding: 4px 10px;' id="btn" class="btn-get-started scrollto" name="submit1">SAVE</button>
-             </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-
-      <?php
-// لدمج  الملفات 
-
-   if(isset($_POST['submit1'])){
-       $description=mysqli_real_escape_string($con,$_POST["description"]);
-       $wording=mysqli_real_escape_string($con,$_POST["wording"]);
-       $unit_price=mysqli_real_escape_string($con,$_POST["unit_price"]);
-       $quantity_min=mysqli_real_escape_string($con,$_POST["quantity_min"]);
-       $quantity_stock=mysqli_real_escape_string($con,$_POST["quantity_stock"]);
-       $category=mysqli_real_escape_string($con,$_POST["category"]);
-       
-            $sql=("INSERT INTO product (description,wording,unit_price,quantity_min,quantity_stock,category)VALUES('$description','$wording','$unit_price','$quantity_min','$quantity_stock','$category')");
-            $result=mysqli_query($con,$sql);
-            if($result){
-                echo'data save';
-            }else {
-                  echo'data not save'; 
-             }
-     
-   }
+    $query="SELECT * FROM product ";
+$sql= mysqli_query($con, $query) or die("database error:". mysqli_error($con));
 ?>
-<br>
-<br>
-<br>
-<br>
+
+
+    <br>
+
+        <table   id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>wording</th>
+                    <th>unit_price</th>
+                    <th>quantity_min</th>
+                    <th> quantity_stock</th>
+                    <th> Category</th>
+
+                    <th>Action</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+            <?php while($row=mysqli_fetch_assoc($sql)){?>
+
+                <tr>
+                    <td><?php echo $row ['description']; ?></td>
+                    <td><?php echo $row ['wording']; ?></td>
+                    <td><?php echo $row ['unit_price']; ?></td>
+                    <td><?php echo $row ['quantity_min']; ?></td>
+                    <td><?php echo $row ['quantity_stock']; ?></td>
+                    
+                    <td><?php echo $row ['category']; ?></td>
+                    <td>
+				<a href="edit.php?edit=<?php echo $row['reference']; ?>" class="edit_btn" ><i class="far fa-edit"></i></a>
+		
+      <a href="delete.php?id=<?php echo $row['reference']; ?>" onclick='return confirm ("are you sur to delete");' class="delete" title="Delete" data-toggle="tooltip"><i class="far fa-trash-alt"></i></a>
+      </td>
+                </tr>
+                <?php } ?>
+
+            </tfoot>
+        </table>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap.min.js  "></script>
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable( {
+                responsive: true
+            } );
+        
+            new $.fn.dataTable.FixedHeader( table );
+        } );
+    </script>
 
 
 
